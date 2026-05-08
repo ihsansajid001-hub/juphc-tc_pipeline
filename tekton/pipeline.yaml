@@ -29,14 +29,14 @@ spec:
     - name: npminstall
       runAfter: [fetch-source]
       taskRef:
-        name: npm-install
+        name: npm
       workspaces:
         - name: source
           workspace: shared-data
     - name: tests
       runAfter: [npminstall]
       taskRef:
-        name: jasmine-test
+        name: jasmine
       workspaces:
         - name: source
           workspace: shared-data
