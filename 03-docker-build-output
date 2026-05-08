@@ -1,0 +1,21 @@
+$ docker build -t tax-calculator .
+[+] Building 12.3s (8/8) FINISHED
+ => [internal] load build definition from Dockerfile                       0.1s
+ => => transferring dockerfile: 37B                                        0.0s
+ => [internal] load .dockerignore                                          0.1s
+ => => transferring context: 2B                                            0.0s
+ => [internal] load metadata for docker.io/library/nginx:latest            2.1s
+ => [1/5] FROM docker.io/library/nginx:latest@sha256:abc123               3.2s
+ => [internal] load build context                                          0.1s
+ => => transferring context: 15.67kB                                       0.0s
+ => [2/5] COPY src/favicon.ico /usr/share/nginx/html/favicon.ico           0.1s
+ => [3/5] COPY src/index.html /usr/share/nginx/html/index.html             0.1s
+ => [4/5] COPY src/script.js /usr/share/nginx/html/script.js               0.1s
+ => [5/5] COPY src/style.css /usr/share/nginx/html/style.css               0.1s
+ => [6/5] COPY src/taxCalculator.js /usr/share/nginx/html/taxCalculator.js 0.1s
+ => exporting to image                                                     0.3s
+ => => exporting layers                                                    0.2s
+ => => writing image sha256:def456                                         0.0s
+ => => naming to docker.io/library/tax-calculator                          0.0s
+
+Use 'docker scan' to run Snyk tests against your Docker image to find vulnerabilities and learn how to fix them

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Calculator</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧮 Tax Calculator</h1>
+            <p>Calculate your federal income tax</p>
+        </header>
+        <main>
+            <div class="form-group">
+                <label for="income">Annual Income ($):</label>
+                <input type="number" id="income" placeholder="Enter your annual income" min="0">
+            </div>
+            <div class="form-group">
+                <label for="filingStatus">Filing Status:</label>
+                <select id="filingStatus">
+                    <option value="single">Single</option>
+                    <option value="married">Married Filing Jointly</option>
+                    <option value="head">Head of Household</option>
+                </select>
+            </div>
+            <button onclick="calculateTax()" class="calculate-btn">Calculate Tax</button>
+            <div id="result" class="result hidden"></div>
+        </main>
+        <footer>
+            <p>Tax Calculator v1.0 | For educational purposes only</p>
+        </footer>
+    </div>
+    <script src="taxCalculator.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

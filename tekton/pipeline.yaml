@@ -1,0 +1,54 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: tax-calculator-pipeline
+spec:
+  description: Pipeline to build and deploy the Tax Calculator application
+  params:
+    - name: repo-url
+      type: string
+      description: The git repository URL
+    - name: image-reference
+      type: string
+      description: The container image reference to build and push
+  workspaces:
+    - name: shared-data
+      description: Shared workspace for pipeline tasks
+    - name: docker-credentials
+      description: Docker credentials for pushing to registry
+  tasks:
+    - name: fetch-source
+      taskRef:
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-data
+      params:
+        - name: url
+          value: $(params.repo-url)
+    - name: npminstall
+      runAfter: [fetch-source]
+      taskRef:
+        name: npm-install
+      workspaces:
+        - name: source
+          workspace: shared-data
+    - name: tests
+      runAfter: [npminstall]
+      taskRef:
+        name: jasmine-test
+      workspaces:
+        - name: source
+          workspace: shared-data
+    - name: build
+      runAfter: [tests]
+      taskRef:
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: shared-data
+        - name: dockerconfig
+          workspace: docker-credentials
+      params:
+        - name: IMAGE
+          value: $(params.image-reference)

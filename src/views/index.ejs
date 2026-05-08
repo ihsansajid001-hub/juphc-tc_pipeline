@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Calculator</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧮 Tax Calculator</h1>
+            <p>Calculate your federal income tax for 2023</p>
+        </header>
+
+        <main>
+            <form action="/calculate" method="POST" class="tax-form">
+                <div class="form-group">
+                    <label for="income">Annual Income ($):</label>
+                    <input 
+                        type="number" 
+                        id="income" 
+                        name="income" 
+                        step="0.01" 
+                        min="0" 
+                        required
+                        placeholder="Enter your annual income"
+                        value="<%= result ? result.income : '' %>"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="filingStatus">Filing Status:</label>
+                    <select id="filingStatus" name="filingStatus">
+                        <option value="single" <%= result && result.filingStatus === 'single' ? 'selected' : '' %>>Single</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="calculate-btn">Calculate Tax</button>
+            </form>
+
+            <% if (typeof error !== 'undefined' && error) { %>
+                <div class="error">
+                    <p><strong>Error:</strong> <%= error %></p>
+                </div>
+            <% } %>
+
+            <% if (result) { %>
+                <div class="results">
+                    <h2>Tax Calculation Results</h2>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Annual Income:</span>
+                            <span class="value">$<%= result.income.toLocaleString() %></span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Federal Tax:</span>
+                            <span class="value tax-amount">$<%= result.tax.toLocaleString() %></span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">After-Tax Income:</span>
+                            <span class="value">$<%= result.afterTax.toLocaleString() %></span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Effective Tax Rate:</span>
+                            <span class="value"><%= result.effectiveRate %>%</span>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </main>
+
+        <footer>
+            <p>Tax Calculator v1.0 | For educational purposes only</p>
+        </footer>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
